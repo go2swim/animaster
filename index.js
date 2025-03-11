@@ -46,7 +46,24 @@ function animaster() {
                 result.push(`scale(${ratio})`);
             }
             return result.join(' ');
+        },
+
+        heartBeating: function(element) {
+            const intervalId = setInterval(() => {
+                // Увеличение до 1.4 за 0.5 секунд
+                this.scale(element, 500, 1.4);
+                // Через 0.5 секунд возвращаем к нормальному размеру
+                setTimeout(() => {
+                    this.scale(element, 500, 1);
+                }, 500);
+            }, 1000);
+            return {
+                stop: function() {
+                    clearInterval(intervalId);
+                }
+            };
         }
+
     }
 }
 
@@ -81,6 +98,19 @@ function addListeners() {
         .addEventListener('click', function () {
             const block = document.getElementById('showAndHideBlock');
             animasterInstancer.showAndHide(block, 5000);
+        });
+
+    document.getElementById('moveAndHidePlay')
+        .addEventListener('click', function () {
+            const block = document.getElementById('moveAndHideBlock');
+            animasterInstancer.move(block, 1000, {x: 100, y: 10});
+            animasterInstancer.fadeOut(block, 5000);
+        });
+
+    document.getElementById('heartBeatingPlay')
+        .addEventListener('click', function () {
+            const block = document.getElementById('heartBeatingBlock');
+            animasterInstancer.heartBeating(block);
         });
 }
 
