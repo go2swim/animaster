@@ -8,6 +8,12 @@ function animaster() {
             element.classList.add('show');
         },
 
+        fadeOut: function(element, duration) {
+            element.style.transitionDuration =  `${duration}ms`;
+            element.classList.remove('show');
+            element.classList.add('hide');
+        },
+
         move: function(element, duration, translation) {
             element.style.transitionDuration = `${duration}ms`;
             element.style.transform = this.getTransform(translation, null);
@@ -37,7 +43,13 @@ function addListeners() {
     document.getElementById('fadeInPlay')
         .addEventListener('click', function () {
             const block = document.getElementById('fadeInBlock');
-            animasterInstance.fadeIn(block, 5000);
+            animasterInstancer.fadeIn(block, 5000);
+        });
+
+    document.getElementById('fadeOutPlay')
+        .addEventListener('click', function () {
+            const block = document.getElementById('fadeOutBlock');
+            animasterInstancer.fadeOut(block, 5000);
         });
 
     document.getElementById('movePlay')
