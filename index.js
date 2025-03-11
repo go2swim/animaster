@@ -50,9 +50,7 @@ function animaster() {
 
         heartBeating: function(element) {
             const intervalId = setInterval(() => {
-                // Увеличение до 1.4 за 0.5 секунд
                 this.scale(element, 500, 1.4);
-                // Через 0.5 секунд возвращаем к нормальному размеру
                 setTimeout(() => {
                     this.scale(element, 500, 1);
                 }, 500);
@@ -107,11 +105,21 @@ function addListeners() {
             animasterInstancer.fadeOut(block, 5000);
         });
 
+    let heartBeatAnimation;
+
     document.getElementById('heartBeatingPlay')
         .addEventListener('click', function () {
             const block = document.getElementById('heartBeatingBlock');
-            animasterInstancer.heartBeating(block);
+            heartBeatAnimation = animasterInstancer.heartBeating(block);
         });
+
+    document.getElementById('heartBeatingStop')
+        .addEventListener('click', function () {
+            if (heartBeatAnimation) {
+                heartBeatAnimation.stop();
+            }
+        });
+
 }
 
 /**
